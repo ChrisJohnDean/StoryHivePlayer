@@ -1,0 +1,3 @@
+rootProject.name = 'StoryHivePlayer'
+
+include ':app'
