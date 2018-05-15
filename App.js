@@ -10,8 +10,36 @@ import {
   StyleSheet,
   Text,
   View,
-  FlatList
+  FlatList,
+  TouchableHighlight,
+  Image
 } from 'react-native';
+
+
+
+class ListItem extends React.PureComponent {
+  _onPress = () => {
+    this.props.onPressItem(this.props.index);
+  }
+
+  render() {
+    return (
+      <TouchableHighlight 
+        onPress={this._onPress}
+        underlayColor='#dddddd'>
+        <View>
+          <View style={styles.rowContainer}>
+            <Image/>
+            <View style={styles.textContainer}>
+              <Text style={styles.itemName}>{this.props.item.name}</Text>
+            </View>
+          </View>
+        </View>
+      </TouchableHighlight>
+    )
+  }
+
+}
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -36,19 +64,27 @@ export default class App extends Component<Props> {
     }
   }
 
+  _keyExtractor = (item, index) => index;
 
-  // <FlatList
-  // data={[{key: 'a'}, {key: 'b'}]}
-  // renderItem={({item}) => <Text>{item.key}</Text>}
-  // />
+  _renderItem = ({item, index}) => (
+    <ListItem
+      item={item}
+      index={index}
+      onPressItem={this._onPressItem}
+    />
+  );
+
+  _onPressItem = (index) => {
+    console.log("Pressed row: "+index);
+  };
 
   render() {
     return (
       <View style={styles.container}>
         <FlatList
           data={this.state.films}
-          renderItem={({item}) => <Text>{item.name}</Text>}
-          
+          keyExtractor={this._keyExtractor}
+          renderItem={this._renderItem}
         />
       </View>
     );
@@ -69,8 +105,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    //justifyContent: 'center',
+    //alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
+  rowContainer: {
+    flexDirection: 'row',
+    padding: 10,
+    
+  },
+  textContainer: {
+    flex: 1
+  },
+  itemName: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: '#48BBEC'
+  }
 });
