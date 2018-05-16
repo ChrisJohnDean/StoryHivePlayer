@@ -34,7 +34,6 @@ class ListItem extends React.PureComponent {
         <View>
           <View style={styles.rowContainer}>
             <Image style={styles.thumb} source ={{uri: this.props.item.image_url}}/>
-            {/* <Image style={styles.thumb} source ={{uri: 'https://dbl4hsd8tfgwq.cloudfront.net/telusproduction/55b808bbaa6c6_i_240x344.jpg'}}/> */}
             <View style={styles.textContainer}>
               <Text style={styles.itemName}>{this.props.item.title}</Text>
             </View>
@@ -122,8 +121,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 50,
-    //justifyContent: 'center',
-    //alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   rowContainer: {
@@ -132,16 +129,20 @@ const styles = StyleSheet.create({
     
   },
   textContainer: {
-    flex: 1
+    flex: 1,
+    justifyContent: 'center',
   },
   itemName: {
-    fontSize: 25,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: '#48BBEC'
+    color: '#48BBEC',
+    
+    
   },
   thumb: {
     width: 80,
     height: 80,
+    borderRadius: 80/2,
     marginRight: 10
   }
 });
