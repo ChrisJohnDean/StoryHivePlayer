@@ -43,7 +43,7 @@ class ListItem extends React.PureComponent {
 }
 
 // type Props = {};
-let colors = ['#93ff68', '#e4ff55', '#ffb543', '#ff5a5a', '#c660ff'];
+let colors = ['#e43446', '#4fb84f', '#e23d96', '#c2c500', '#72c2a7', '#f37021'];
 export default class FilmList extends Component<{}> {
     constructor(props) {
       super(props);
@@ -53,21 +53,37 @@ export default class FilmList extends Component<{}> {
       }
     }
   
+    // async componentDidMount() {
+    //     try {
+    //         const result = fetch('https://www.storyhive.com/api/grid-data/portal-community-videos')
+    //         .then((response) => response.json())
+    //         .then((responseJson) => {
+    //             console.log(responseJson.results)
+    //             setTimeout(() => {
+    //             this.setState({
+    //                 films: responseJson.results
+    //             });
+    //             }, 2000)
+    //         })
+    //     }    catch((error) => {
+    //             console.error(error);
+    //         });
+    // }
 
-    componentDidMount() {
-      const result = fetch('https://www.storyhive.com/api/grid-data/portal-community-videos')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(responseJson.results)
-        setTimeout(() => {
-          this.setState({
-            films: responseJson.results
-          });
-        }, 2000)
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    setStateAsync(state) {
+        return new Promise((resolve) => {
+            this.setState(state, resolve)
+        });
+    }
+
+    async componentDidMount() {
+        try {
+            const response =  await fetch('https://www.storyhive.com/api/grid-data/portal-community-videos');
+            const responseJson = await response.json();
+            await this.setState({films: responseJson.results})
+        }   catch (error) {
+                console.error(error);
+            }
     }
     
     _keyExtractor = (item, index) => index.toString();
