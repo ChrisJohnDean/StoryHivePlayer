@@ -2,21 +2,21 @@
 'use strict';
 import React, { Component } from 'react';
 import {
-  Platform, 
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  TouchableHighlight,
-  Image,
-  ActivityIndicator,
-  ScrollView
+    Platform, 
+    StyleSheet,
+    Text,
+    View,
+    FlatList,
+    TouchableHighlight,
+    Image,
+    ActivityIndicator,
+    ScrollView
 } from 'react-native';
 import FilmPlayer from './FilmPlayer';
 
 class ListItem extends React.PureComponent {
   _onPress = () => {
-    this.props.onPressItem(this.props.index);
+    this.props.onPressItem(this.props.index, this.props.item);
     
   }
 
@@ -43,7 +43,7 @@ class ListItem extends React.PureComponent {
 }
 
 // type Props = {};
-
+let colors = ['#93ff68', '#e4ff55', '#ffb543', '#ff5a5a', '#c660ff'];
 export default class FilmList extends Component<{}> {
     constructor(props) {
       super(props);
@@ -53,7 +53,7 @@ export default class FilmList extends Component<{}> {
       }
     }
   
-  
+
     componentDidMount() {
       const result = fetch('https://www.storyhive.com/api/grid-data/portal-community-videos')
       .then((response) => response.json())
@@ -71,28 +71,34 @@ export default class FilmList extends Component<{}> {
     }
     
     _keyExtractor = (item, index) => index.toString();
-  
+    
+    
     _renderItem = ({item, index}) => (
-      <ListItem
-        item={item}
-        data = {item}
-        index={index}
-        onPressItem={this._onPressItem}
-      />
+        
+        <View style={{backgroundColor: colors[index % colors.length]}}>
+            <ListItem
+                item={item}
+                data = {item}
+                index={index}
+                onPressItem={this._onPressItem}
+            />
+        </View>
     );
   
-    _onPressItem = (index) => {
+    _onPressItem = (index, item) => {
         console.log("Pressed row: "+index);
+        console.log(item);
         this.props.navigator.push({
             title: 'Hive Player',
-            component: FilmPlayer
-        //passProps: {filmData: this.props.item}
+            component: FilmPlayer,
+            passProps: {filmData: item}
         });
     };
   
     render() {
       console.log(this.state.films.length > 0 ? "yes" : "no");
       return (
+        
         <View style={styles.container}>
         {
           this.state.films.length > 0 ?
@@ -123,21 +129,25 @@ export default class FilmList extends Component<{}> {
     },
     container: {
       flex: 1,
-      marginTop: 50,
+      marginTop: 67,
       backgroundColor: '#F5FCFF',
     },
     rowContainer: {
       flexDirection: 'row',
       padding: 10,
+      flex: 1,
+      borderColor: '#000',
+      borderTopWidth: 2,
+      borderBottomWidth: 2
     },
     textContainer: {
       flex: 1,
       justifyContent: 'center',
     },
     itemName: {
-      fontSize: 18,
+      fontSize: 24,
       fontWeight: 'bold',
-      color: '#48BBEC',
+      color: '#000',
     },
     thumb: {
       width: 80,
