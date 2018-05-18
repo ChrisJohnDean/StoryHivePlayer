@@ -11,21 +11,23 @@ import Button from 'react-native-button';
 import FilmList from './FilmList';
 
 
-const data = [];
+const filmEditionUrls = [
+    {"edition": "Community Videos", "urlString": "https://www.storyhive.com/api/grid-data/portal-community-videos"}, 
+    {"edition": "Music Videos", "urlString": "https://www.storyhive.com/api/grid-data/edition-projects/phase/10/cycleType/music/cycleId/10"},
+    {"edition": "Web Series", "urlString": "https://www.storyhive.com/api/grid-data/edition-projects/phase/10/cycleType/web/cycleId/12"},
+    {"edition": "Digital Shorts", "urlString": "https://www.storyhive.com/api/grid-data/edition-projects/phase/10/cycleType/short/cycleId/8"},
+    {"edition": "Animation", "urlString": "https://www.storyhive.com/api/grid-data/edition-projects/phase/10/cycleType/short/cycleId/9"}
+];
+
 export default class Home extends Component {
     constructor(props) {
         super(props);
         const data = []
         this.state = { 
           url: "https://www.storyhive.com/api/grid-data/portal-community-videos",
-          test: "asdasd"
+          edition: "Community Videos"
         }
       }
-      
-    // updateUrl = (url) => {
-    //     this.setState({url: url})
-    // } 
-      
 
       _onPress = () => {
         console.log(this.state.url)
@@ -36,10 +38,16 @@ export default class Home extends Component {
         });
       };
 
+      updateUrl = (url, edition) => {
+        this.setState({url: url, edition: edition})
+      }
+
       render() {
           return (
                 <View style={styles.container}>
-                    <View style={styles.view}></View>
+                    <View style={styles.view}>
+                        <Text>{filmEditionUrls[this.state.edition].edition}</Text>
+                    </View>
                     {/* {
                         this.state.items ?
                         <Picker>
@@ -49,14 +57,14 @@ export default class Home extends Component {
                         <Spinner />
                     } */}
                     <Picker 
-                    selectedValue={this.state.url} 
-                    onValueChange={(itemValue, itemIndex) => this.setState({url: itemValue})} style={styles.view}>
-                    {/* onValueChange={this.updateUrl}> */}
-                        <Picker.Item label="Community Videos" value="https://www.storyhive.com/api/grid-data/portal-community-videos" />
-                        <Picker.Item label="Music Videos" value="https://www.storyhive.com/api/grid-data/edition-projects/phase/10/cycleType/music/cycleId/10" />
-                        <Picker.Item label="Web Series" value="https://www.storyhive.com/api/grid-data/edition-projects/phase/10/cycleType/web/cycleId/12" />
-                        <Picker.Item label="Digital Shorts" value="https://www.storyhive.com/api/grid-data/edition-projects/phase/10/cycleType/short/cycleId/8" />
-                        <Picker.Item label="Animation" value="https://www.storyhive.com/api/grid-data/edition-projects/phase/10/cycleType/short/cycleId/9" />
+                        selectedValue={this.state.url} 
+                        onValueChange={this.updateUrl}>
+                            {
+                                filmEditionUrls.map(function(result){
+                                    
+                                    return <Picker.Item key={result.urlString} label={result.edition} value={result.urlString} /> ;
+                                })
+                            }
                     </Picker>
                     <View style={styles.buttonView}>
                         <Button
