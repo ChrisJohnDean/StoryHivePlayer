@@ -43,29 +43,31 @@ export default class Home extends Component {
         this.setState({url: url, currentSelectedEditionId: index})
       }
 
+      _generatePickerItems() {
+        const pickerItems = filmEditionUrls.map((item, index) => {
+            return <Picker.Item key={index} label={item.edition} value={item.urlString} /> ;
+        })
+        return pickerItems;
+      }
+
       render() {
           return (
                 <View style={styles.container}>
                     <View style={styles.view}>
                         <Text style={styles.text}>{filmEditionUrls[this.state.currentSelectedEditionId].edition}</Text>
                     </View>
-                    {/* {
-                        this.state.items ?
-                        <Picker>
-                            {this.state.items}
+                    {
+                        filmEditionUrls.length > 0 ?
+                        <Picker 
+                            selectedValue={this.state.url} 
+                            onValueChange={this.updateUrl}>
+                            {this._generatePickerItems()}
                         </Picker>
                         :
-                        <Spinner />
-                    } */}
-                    <Picker 
-                        selectedValue={this.state.url} 
-                        onValueChange={this.updateUrl}>
-                            {
-                                filmEditionUrls.map((item, index) => {
-                                    return <Picker.Item key={index} label={item.edition} value={item.urlString} /> ;
-                                })
-                            }
-                    </Picker>
+                        <View style={styles.textContainer}>
+                            <ActivityIndicator size="large" color="#0000ff"/>
+                        </View>
+                    }
                     <View style={styles.buttonView}>
                         <Button
                             containerStyle={{ 
@@ -110,5 +112,9 @@ const styles = StyleSheet.create({
         marginTop: 110,
         fontFamily: 'Futura-Mediumitalic',
         textDecorationLine: 'underline'
+    },
+    textContainer: {
+        flex: 1,
+        justifyContent: 'center'
     }
 })
