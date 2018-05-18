@@ -11,7 +11,6 @@ import {
   NavigatorIOS
 } from 'react-native';
 import Home from './Home';
-import FilmList from './FilmList';
 
 
 type Props = {};

@@ -1,8 +1,7 @@
 'use strict';
 import React, {Component} from 'react';
 import{
-    View,
-    Text,
+    View, Text,
     Picker,
     StyleSheet,
     NavigatorIOS
@@ -10,14 +9,19 @@ import{
 import Button from 'react-native-button';
 import FilmList from './FilmList';
 
+const data = [];
 export default class Home extends Component {
     constructor(props) {
         super(props);
+        const data = []
         this.state = { 
-          url: "https://www.storyhive.com/api/grid-data/portal-community-videos"
+          url: "https://www.storyhive.com/api/grid-data/portal-community-videos",
+          test: "asdasd"
         }
       }
+      
 
+      
 
       _onPress = () => {
         console.log(this.state.url)
@@ -32,9 +36,17 @@ export default class Home extends Component {
           return (
                 <View style={styles.container}>
                     <View style={styles.view}></View>
+                    {/* {
+                        this.state.items ?
+                        <Picker>
+                            {this.state.items}
+                        </Picker>
+                        :
+                        <Spinner />
+                    } */}
                     <Picker 
                     selectedValue={this.state.url} 
-                    onValueChange={(itemValue, itemIndex) => this.setState({url: itemValue})} style={styles.view}>
+                    onValueChange={(itemValue, itemIndex) => this.setState({...this.state, url: itemValue})} style={styles.view}>
                         <Picker.Item label="Community Videos" value="https://www.storyhive.com/api/grid-data/portal-community-videos" />
                         <Picker.Item label="Music Videos" value="https://www.storyhive.com/api/grid-data/edition-projects/phase/10/cycleType/music/cycleId/10" />
                         <Picker.Item label="Web Series" value="https://www.storyhive.com/api/grid-data/edition-projects/phase/10/cycleType/web/cycleId/12" />
