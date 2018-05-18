@@ -10,6 +10,7 @@ import {
   StyleSheet,
   NavigatorIOS
 } from 'react-native';
+import Home from './Home';
 import FilmList from './FilmList';
 
 
@@ -21,8 +22,10 @@ export default class App extends Component<{}> {
         <NavigatorIOS
           style={styles.container}
           initialRoute={{
+              // title: 'Story Hive',
+              // component: FilmList,
               title: 'Story Hive',
-              component: FilmList,
+              component: Home
           }}/>
     );
   }
