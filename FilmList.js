@@ -56,32 +56,6 @@ export default class FilmList extends Component<{}> {
       //this._onPressItem = this._onPressItem.bind(this)
     }
   
-    // async componentDidMount() {
-    //     try {
-    //         const result = fetch('https://www.storyhive.com/api/grid-data/portal-community-videos')
-    //         .then((response) => response.json())
-    //         .then((responseJson) => {
-    //             console.log(responseJson.results)
-    //             setTimeout(() => {
-    //             this.setState({
-    //                 films: responseJson.results
-    //             });
-    //             }, 2000)
-    //         })
-    //     }    catch((error) => {
-    //             console.error(error);
-    //         });
-    // }
-
-    // setStateAsync(state) {
-    //     return new Promise((resolve) => {
-    //         this.setState(state, resolve)
-    //     });
-    // }
-
-
-    
-
     async componentDidMount() {
         console.log(this.props.filmTypeUrl);
         try {
@@ -95,7 +69,6 @@ export default class FilmList extends Component<{}> {
     }
     
     _keyExtractor = (item, index) => index.toString();
-    
     
     _renderItem = ({item, index}) => (
         
@@ -132,7 +105,9 @@ export default class FilmList extends Component<{}> {
             renderItem={this._renderItem}
           />
           :
-          <ActivityIndicator size="large" color="#0000ff"/>
+          <View style={styles.textContainer}>
+            <ActivityIndicator size="large" color="#0000ff"/>
+          </View>
         }
         </View>
       );

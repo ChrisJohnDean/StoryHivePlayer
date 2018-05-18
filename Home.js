@@ -25,7 +25,7 @@ export default class Home extends Component {
         const data = []
         this.state = { 
           url: "https://www.storyhive.com/api/grid-data/portal-community-videos",
-          edition: "Community Videos"
+          currentSelectedEditionId: 0
         }
       }
 
@@ -38,15 +38,16 @@ export default class Home extends Component {
         });
       };
 
-      updateUrl = (url, edition) => {
-        this.setState({url: url, edition: edition})
+      updateUrl = (url, index) => {
+          console.log(url, index);
+        this.setState({url: url, currentSelectedEditionId: index})
       }
 
       render() {
           return (
                 <View style={styles.container}>
                     <View style={styles.view}>
-                        <Text>{filmEditionUrls[this.state.edition].edition}</Text>
+                        <Text style={styles.text}>{filmEditionUrls[this.state.currentSelectedEditionId].edition}</Text>
                     </View>
                     {/* {
                         this.state.items ?
@@ -60,9 +61,8 @@ export default class Home extends Component {
                         selectedValue={this.state.url} 
                         onValueChange={this.updateUrl}>
                             {
-                                filmEditionUrls.map(function(result){
-                                    
-                                    return <Picker.Item key={result.urlString} label={result.edition} value={result.urlString} /> ;
+                                filmEditionUrls.map((item, index) => {
+                                    return <Picker.Item key={index} label={item.edition} value={item.urlString} /> ;
                                 })
                             }
                     </Picker>
@@ -102,5 +102,13 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    text: {
+        fontSize: 32,
+        alignSelf: 'center',
+        color: '#800000',
+        marginTop: 110,
+        fontFamily: 'Futura-Mediumitalic',
+        textDecorationLine: 'underline'
     }
 })
