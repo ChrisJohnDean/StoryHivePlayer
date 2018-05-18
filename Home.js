@@ -1,13 +1,15 @@
 'use strict';
 import React, {Component} from 'react';
 import{
-    View, Text,
+    View, 
+    Text,
     Picker,
     StyleSheet,
     NavigatorIOS
 } from 'react-native';
 import Button from 'react-native-button';
 import FilmList from './FilmList';
+
 
 const data = [];
 export default class Home extends Component {
@@ -20,7 +22,9 @@ export default class Home extends Component {
         }
       }
       
-
+    // updateUrl = (url) => {
+    //     this.setState({url: url})
+    // } 
       
 
       _onPress = () => {
@@ -46,7 +50,8 @@ export default class Home extends Component {
                     } */}
                     <Picker 
                     selectedValue={this.state.url} 
-                    onValueChange={(itemValue, itemIndex) => this.setState({...this.state, url: itemValue})} style={styles.view}>
+                    onValueChange={(itemValue, itemIndex) => this.setState({url: itemValue})} style={styles.view}>
+                    {/* onValueChange={this.updateUrl}> */}
                         <Picker.Item label="Community Videos" value="https://www.storyhive.com/api/grid-data/portal-community-videos" />
                         <Picker.Item label="Music Videos" value="https://www.storyhive.com/api/grid-data/edition-projects/phase/10/cycleType/music/cycleId/10" />
                         <Picker.Item label="Web Series" value="https://www.storyhive.com/api/grid-data/edition-projects/phase/10/cycleType/web/cycleId/12" />
