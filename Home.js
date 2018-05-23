@@ -9,6 +9,9 @@ import{
 } from 'react-native';
 import Button from 'react-native-button';
 import FilmList from './FilmList';
+import FooterTabBar from './FooterTabBar';
+import Search from './Search';
+
 
 
 const filmEditionUrls = [
@@ -34,9 +37,23 @@ export default class Home extends Component {
         this.props.navigator.push({
             title: 'Story Hive',
             component: FilmList,
-            passProps: {filmTypeUrl: this.state.url}
+            passProps: {filmTypeUrl: this.state.url},
         });
       };
+
+      _onFooterTabButton = () => {
+        this.props.navigator.push({
+            title: 'TabBar',
+            component: FooterTabBar
+        });
+      }
+
+      _onSearch = () => {
+        this.props.navigator.push({
+            title: 'Search',
+            component: Search
+        });
+      }
 
       updateUrl = (url, index) => {
           console.log(url, index);
@@ -83,6 +100,36 @@ export default class Home extends Component {
                             style={{ fontSize: 20, color: 'white' }}
                         >
                             Watch Now!
+                        </Button>
+                        <Button
+                            containerStyle={{ 
+                                padding: 10,
+                                marginBottom: 30, 
+                                height: 45,
+                                width: 300, 
+                                overflow: 'hidden', 
+                                borderRadius: 4, 
+                                backgroundColor: '#013220',
+                            }}
+                            onPress={this._onFooterTabButton}
+                            style={{ fontSize: 20, color: 'white' }}
+                        >
+                            Footer Tab
+                        </Button>
+                        <Button
+                            containerStyle={{ 
+                                padding: 10,
+                                marginBottom: 30, 
+                                height: 45,
+                                width: 300, 
+                                overflow: 'hidden', 
+                                borderRadius: 4, 
+                                backgroundColor: '#013220',
+                            }}
+                            onPress={this._onSearch}
+                            style={{ fontSize: 20, color: 'white' }}
+                        >
+                            Search StoryHive
                         </Button>
                     </View>
                 </View>

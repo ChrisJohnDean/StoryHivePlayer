@@ -13,7 +13,7 @@ import {
 import Home from './Home';
 
 
-type Props = {};
+//type Props = {};
 
 export default class App extends Component<{}> {
   render() {
