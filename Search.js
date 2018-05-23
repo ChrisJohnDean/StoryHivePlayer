@@ -78,6 +78,10 @@ export default class Search extends Component {
               <Text>Search</Text>
             </Button>
           </Header>
+          <FlatList
+            data={this.state.films}
+            renderItem={({item}) => <View style={styles.rowContainer}><Text>{item.name}</Text></View>}
+          />
         </Container>
       </TouchableWithoutFeedback>
     )
@@ -89,5 +93,14 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 50,
     backgroundColor: '#c2f2d0'
+  },
+  rowContainer: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    padding: 10,
+    flex: 1,
+    borderColor: '#000',
+    borderTopWidth: 1,
+    borderBottomWidth: 1
   }
 })
