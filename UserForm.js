@@ -16,13 +16,30 @@ import { Container, Header, Content, Form, Item, Input, Label } from 'native-bas
 export default class UserForm extends Component {
   constructor (props) {
     super(props)
+    this.state = {
+      username: '',
+      password: ''
+
+    }
   }
 
   render () {
     return (
-        <Container style={styles.cont}>
-            <Text>User Form</Text>
-        </Container>
+      <Container>
+        <Header />
+        <Content>
+          <Form>
+            <Item floatingLabel>
+              <Label>Username</Label>
+              <Input onChangeText={(text) => this.setState({username: text})}/>
+            </Item>
+            <Item floatingLabel last>
+              <Label>Password</Label>
+              <Input onChangeText={(text) => this.setState({password: text})}/>
+            </Item>
+          </Form>
+        </Content>
+      </Container>
     )
   }
 }

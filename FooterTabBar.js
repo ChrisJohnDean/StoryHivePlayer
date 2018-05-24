@@ -18,7 +18,8 @@ import {
   FooterTab,
   Button,
   Icon,
-  Text
+  Text,
+  Badge
 } from 'native-base';
 import Search from './Search';
 import CardSwiper from './CardSwiper';
@@ -48,7 +49,8 @@ export default class FooterTabBar extends Component {
         </Content>
         <Footer>
           <FooterTab>
-            <Button vertical onPress={() => this.setState({index: 0})} active={this.state.index===0}>
+            <Button vertical badge onPress={() => this.setState({index: 0})} active={this.state.index===0}>
+              <Badge ><Text>51</Text></Badge>
               <Icon name="search"/>
               <Text>Search</Text>
             </Button>
