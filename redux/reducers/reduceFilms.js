@@ -12,3 +12,5 @@ const reduceFilms = (state = initialState, action) => {
       return state
   }
 }
+
+export default reduceFilms

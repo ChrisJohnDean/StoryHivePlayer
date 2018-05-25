@@ -41,6 +41,8 @@ export default class Home extends Component {
         });
       };
 
+      
+
       _onFooterTabButton = () => {
         this.props.navigator.push({
             title: 'TabBar',
