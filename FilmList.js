@@ -13,11 +13,14 @@ import {
     ScrollView
 } from 'react-native';
 import FilmPlayer from './FilmPlayer';
+import FilmStore from './FilmStore';
+import { types, onSnapshot, getSnapshot } from 'mobx-state-tree';
+import { observer } from 'mobx-react';
+
 
 class ListItem extends React.PureComponent {
   _onPress = () => {
     this.props.onPressItem(this.props.index, this.props.item);
-    
   }
 
   render() {
@@ -44,7 +47,10 @@ class ListItem extends React.PureComponent {
 
 // type Props = {};
 let colors = ['#e43446', '#4fb84f', '#e23d96', '#c2c500', '#72c2a7', '#f37021'];
+
+@observer
 export default class FilmList extends Component<{}> {
+  
     constructor(props) {
       super(props);
       console.log("hello");
@@ -52,22 +58,18 @@ export default class FilmList extends Component<{}> {
       this.state = { 
         films: []
       }
-
-      //this._onPressItem = this._onPressItem.bind(this)
-    }
-  
-    async componentDidMount() {
-        console.log(this.props.filmTypeUrl);
-        try {
-            // const response =  await fetch('https://www.storyhive.com/api/grid-data/portal-community-videos');
-            const response =  await fetch(this.props.filmTypeUrl);
-            const responseJson = await response.json();
-            this.setState({films: responseJson.results});
-        }   catch (error) {
-                console.error(error);
-            }
     }
     
+    componentDidMount() {
+      FilmStore.fetchFilms(this.props.filmTypeUrl)
+    }
+    // const films = FilmStore.create({ films: 
+    //         this.state.films
+    //         })
+    componentWillUnmount() {
+      FilmStore.clearFilms()
+    }
+
     _keyExtractor = (item, index) => index.toString();
     
     _renderItem = ({item, index}) => (
@@ -93,14 +95,15 @@ export default class FilmList extends Component<{}> {
     };
   
     render() {
+      
       console.log(this.state.films.length > 0 ? "yes" : "no");
       return (
         
         <View style={styles.container}>
         {
-          this.state.films.length > 0 ?
+          FilmStore.films.length > 0 ?
           <FlatList
-            data={this.state.films}
+            data={FilmStore.films}
             keyExtractor={this._keyExtractor}
             renderItem={this._renderItem}
           />
