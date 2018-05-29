@@ -1,4 +1,5 @@
-import { AppRegistry } from 'react-native';
-import App from './App';
+import { AppRegistry } from 'react-native'
+import App from './App'
+import './ReactotronConfig'
 
-AppRegistry.registerComponent('StoryHivePlayer', () => App);
+AppRegistry.registerComponent('StoryHivePlayer', () => App)
