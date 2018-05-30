@@ -8,7 +8,7 @@ export const Film = types.model('Film', {
   elevator_pitch: types.string,
   app_instance_id: types.string,
   title: types.string,
-  music_artist_title: types.string,
+  music_artist_title: types.optional(types.string, ''),
   project_lead: types.string,
   video_link: types.string,
   image_url: types.string,
@@ -20,14 +20,17 @@ export const Film = types.model('Film', {
 })
 
 const FilmStore = types.model('FilmStore', {
-  films: types.array(types.frozen)
+  films: types.array(types.frozen),
+  isFetching: types.boolean
 })
   .actions(self => ({
     fetchFilms: flow(function * (url) {
       try {
+        self.isFetching = true
         const response = yield fetch(url)
         const responseJson = yield response.json()
         self.films = responseJson.results
+        self.isFetching = false
       } catch (error) {
         console.error(error)
       }
@@ -37,7 +40,8 @@ const FilmStore = types.model('FilmStore', {
     }
   }))
   .create({
-    films: []
+    films: [],
+    isFetching: true
   })
 
 export default FilmStore

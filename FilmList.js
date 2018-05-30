@@ -55,17 +55,12 @@ export default class FilmList extends Component<{}> {
       super(props);
       console.log("hello");
       console.log(props.filmTypeUrl);
-      this.state = { 
-        films: []
-      }
     }
     
     componentDidMount() {
       FilmStore.fetchFilms(this.props.filmTypeUrl)
     }
-    // const films = FilmStore.create({ films: 
-    //         this.state.films
-    //         })
+    
     componentWillUnmount() {
       FilmStore.clearFilms()
     }
@@ -95,13 +90,11 @@ export default class FilmList extends Component<{}> {
     };
   
     render() {
-      
-      console.log(this.state.films.length > 0 ? "yes" : "no");
       return (
         
         <View style={styles.container}>
         {
-          FilmStore.films.length > 0 ?
+          !FilmStore.isFetching ?
           <FlatList
             data={FilmStore.films}
             keyExtractor={this._keyExtractor}
