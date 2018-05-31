@@ -13,7 +13,6 @@ import FooterTabBar from './FooterTabBar';
 import Search from './Search';
 
 
-
 const filmEditionUrls = [
     {"edition": "Community Videos", "urlString": "https://www.storyhive.com/api/grid-data/portal-community-videos"}, 
     {"edition": "Music Videos", "urlString": "https://www.storyhive.com/api/grid-data/edition-projects/phase/10/cycleType/music/cycleId/10"},
@@ -37,7 +36,7 @@ export default class Home extends Component {
         this.props.navigator.push({
             title: 'Story Hive',
             component: FilmList,
-            passProps: {filmTypeUrl: this.state.url},
+            passProps: {filmTypeUrl: this.state.url, edition: filmEditionUrls[this.state.currentSelectedEditionId].edition}
         });
       };
 

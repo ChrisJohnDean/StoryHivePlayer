@@ -74,3 +74,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     }
 })
+
+function newFunction() {
+    return 10;
+}

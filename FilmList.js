@@ -53,12 +53,10 @@ export default class FilmList extends Component<{}> {
   
     constructor(props) {
       super(props);
-      console.log("hello");
-      console.log(props.filmTypeUrl);
     }
     
     componentDidMount() {
-      FilmStore.fetchFilms(this.props.filmTypeUrl)
+      FilmStore.fetchFilms(this.props.filmTypeUrl, this.props.edition)
     }
     
     componentWillUnmount() {
@@ -90,16 +88,25 @@ export default class FilmList extends Component<{}> {
     };
   
     render() {
+      
       return (
         
         <View style={styles.container}>
         {
           !FilmStore.isFetching ?
-          <FlatList
-            data={FilmStore.films}
-            keyExtractor={this._keyExtractor}
-            renderItem={this._renderItem}
-          />
+            this.props.edition === 'Community Videos'
+              ? 
+              <FlatList
+                data={FilmStore.communityFilms}
+                keyExtractor={this._keyExtractor}
+                renderItem={this._renderItem}
+              /> 
+              :
+              <FlatList
+                data={FilmStore.otherFilms}
+                keyExtractor={this._keyExtractor}
+                renderItem={this._renderItem}
+              /> 
           :
           <View style={styles.textContainer}>
             <ActivityIndicator size="large" color="#0000ff"/>
